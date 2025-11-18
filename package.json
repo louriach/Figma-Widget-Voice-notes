@@ -1,0 +1,16 @@
+{
+  "name": "figma-quick-notes-widget",
+  "version": "1.0.0",
+  "description": "A simple and beautiful Figma Widget for quick text notes",
+  "main": "dist/code.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@figma/widget-typings": "^1.9.0",
+    "typescript": "^5.3.3"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Quick Notes",
+  "id": "quick-notes-widget",
+  "api": "1.0.0",
+  "widgetApi": "1.0.0",
+  "main": "dist/code.js",
+  "containsWidget": true,
+  "editorType": [
+    "figma",
+    "figjam"
+  ],
+  "networkAccess": {
+    "allowedDomains": ["none"]
+  }
+}
