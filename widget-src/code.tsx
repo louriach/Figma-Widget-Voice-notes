@@ -15,11 +15,11 @@ interface Note {
 }
 
 const COLORS = [
-  { name: "Blue", bg: "#E3F2FF", border: "#0D99FF" },
-  { name: "Purple", bg: "#F3E5FF", border: "#9333EA" },
-  { name: "Pink", bg: "#FFE5F3", border: "#EC4899" },
-  { name: "Yellow", bg: "#FFF9E5", border: "#F59E0B" },
-  { name: "Green", bg: "#E5FFE9", border: "#10B981" },
+  { name: "Blue", bg: "#027BE4", border: "#015DAD" },
+  { name: "Purple", bg: "#B967FF", border: "#9333EA" },
+  { name: "Pink", bg: "#FB4DAB", border: "#E4047D" },
+  { name: "Orange", bg: "#EB5B01", border: "#BA4801" },
+  { name: "Green", bg: "#02A11A", border: "#018416" },
 ];
 
 function Widget() {
@@ -73,8 +73,8 @@ function Widget() {
     <AutoLayout
       direction="vertical"
       spacing={16}
-      padding={20}
-      fill="#FFFFFF"
+      padding={4}
+      fill="#f5f5f5"
       cornerRadius={12}
       effect={{
         type: 'drop-shadow',
@@ -84,109 +84,94 @@ function Widget() {
       }}
       width={400}
     >
-      {/* Header */}
-      <AutoLayout
-        direction="vertical"
-        spacing={8}
-        width="fill-parent"
-      >
-        <Text
-          fontSize={24}
-          fontWeight={700}
-          fill="#000000"
-        >
-          📝 Quick Notes
-        </Text>
-        <Text
-          fontSize={12}
-          fill="#666666"
-        >
-          Add quick notes that stay on your canvas
-        </Text>
-      </AutoLayout>
 
       {/* New Note Input */}
       <AutoLayout
         direction="vertical"
-        spacing={12}
-        padding={16}
-        fill="#F5F5F5"
+        spacing={8}
+        padding={4}
+        fill="#ffffff"
         stroke="#eeeeee"
         strokeWidth={1}
         cornerRadius={8}
         width="fill-parent"
       >
-        <Input
-          value={newNoteText}
-          placeholder="Add a quick note"
-          onTextEditEnd={(e) => setNewNoteText(e.characters)}
-          fontSize={14}
-          fill="#000000"
-          width="fill-parent"
-          fontFamily="Inter"
-          fontWeight={400}
-          placeholderProps={{
-            fontFamily: "Inter",
-            fontWeight: 400,
-          }}
-          inputFrameProps={{
-            fill: "#FFFFFF",
-            stroke: "#eeeeee",
-            strokeWidth: 1,
-            cornerRadius: 6,
-            padding: { vertical: 10, horizontal: 12 },
-          }}
-          inputBehavior="multiline"
-        />
-
-        {/* Color Picker */}
         <AutoLayout
-          direction="horizontal"
-          spacing={8}
+          direction="vertical"
+          spacing={4}
           width="fill-parent"
         >
-          <Text fontSize={12} fill="#666666">Color:</Text>
-          {COLORS.map((color, index) => (
-            <AutoLayout
-              key={color.name}
-              onClick={() => setSelectedColor(index)}
-              padding={4}
-              cornerRadius={4}
-              fill={selectedColor === index ? "#E5E5E5" : "#FFFFFF"}
-              hoverStyle={{
-                fill: "#F0F0F0"
-              }}
-            >
-                <AutoLayout
-                  width={20}
-                  height={20}
-                  cornerRadius={10}
-                  fill={color.bg}
-                  stroke={color.border}
-                  strokeWidth={2}
-                />
-            </AutoLayout>
-          ))}
+          <Input
+            value={newNoteText}
+            placeholder="Add a quick note"
+            onTextEditEnd={(e) => setNewNoteText(e.characters)}
+            fontSize={14}
+            fill="#000000"
+            width="fill-parent"
+            fontFamily="Inter"
+            fontWeight={600}
+            placeholderProps={{
+              fontFamily: "Inter",
+              fontWeight: 400,
+            }}
+            inputFrameProps={{
+              fill: "#FFFFFF",
+              stroke: "#eeeeee",
+              strokeWidth: 1,
+              cornerRadius: 4,
+              padding: { vertical: 6, horizontal: 8 },
+            }}
+            inputBehavior="multiline"
+          />
+
+          {/* Color Picker */}
+          <AutoLayout
+            direction="horizontal"
+            spacing={4}
+            width="fill-parent"
+          >
+            {COLORS.map((color, index) => (
+              <AutoLayout
+                key={color.name}
+                onClick={() => setSelectedColor(index)}
+                padding={2}
+                cornerRadius={6}
+                fill={selectedColor === index ? "#E5E5E5" : "#FFFFFF"}
+                hoverStyle={{
+                  fill: "#F0F0F0"
+                }}
+              >
+                  <AutoLayout
+                    width={20}
+                    height={20}
+                    cornerRadius={4}
+                    fill={color.bg}
+                    stroke={selectedColor === index ? color.border : undefined}
+                    strokeWidth={selectedColor === index ? 2 : 0}
+                  />
+              </AutoLayout>
+            ))}
+          </AutoLayout>
         </AutoLayout>
 
         {/* Add Button */}
         <AutoLayout
           onClick={addNote}
-          fill={newNoteText.trim() ? "#0D99FF" : "#CCCCCC"}
+          fill={newNoteText.trim() ? "#052900" : "#CCCCCC"}
           cornerRadius={6}
           padding={{ vertical: 10, horizontal: 16 }}
           horizontalAlignItems="center"
           width="fill-parent"
           hoverStyle={newNoteText.trim() ? {
-            fill: "#0B7FD9"
+            fill: "#074000"
           } : undefined}
         >
           <Text
             fontSize={14}
             fontWeight={600}
-            fill="#FFFFFF"
+            fill={newNoteText.trim() ? "#C3DDC0" : "#FFFFFF"}
           >
-            ➕ Add Note
+            Add Note
           </Text>
         </AutoLayout>
       </AutoLayout>
@@ -198,9 +183,24 @@ function Widget() {
           spacing={12}
           width="fill-parent"
         >
-          <Text fontSize={12} fill="#666666" fontWeight={600}>
-            YOUR NOTES ({notes.length})
-          </Text>
+          <AutoLayout
+            direction="horizontal"
+            spacing={6}
+            verticalAlignItems="center"
+          >
+            <Text fontSize={12} fill="#666666" fontWeight={600}>
+              Notes
+            </Text>
+            <AutoLayout
+              padding={{ vertical: 2, horizontal: 6 }}
+              fill="#eeeeee"
+              cornerRadius={4}
+            >
+              <Text fontSize={11} fill="#666666" fontWeight={600}>
+                {notes.length}
+              </Text>
+            </AutoLayout>
+          </AutoLayout>
           
           <AutoLayout
             direction="vertical"
@@ -213,13 +213,13 @@ function Widget() {
               <AutoLayout
                 key={note.id}
                 direction="vertical"
-                spacing={8}
+                spacing={4}
                 padding={12}
                 fill={colors.bg}
                 cornerRadius={8}
                 width="fill-parent"
                 stroke={colors.border}
-                strokeWidth={2}
+                strokeWidth={1}
               >
                   {/* Note Content */}
                   <Text
@@ -261,33 +261,7 @@ function Widget() {
             })}
           </AutoLayout>
         </AutoLayout>
-      ) : (
-        <AutoLayout
-          padding={30}
-          horizontalAlignItems="center"
-          width="fill-parent"
-        >
-          <Text
-            fontSize={13}
-            fill="#999999"
-            horizontalAlignText="center"
-          >
-            No notes yet. Add your first note above! 👆
-          </Text>
-        </AutoLayout>
-      )}
-
-      {/* Footer */}
-      <AutoLayout
-        direction="horizontal"
-        spacing={8}
-        horizontalAlignItems="center"
-        width="fill-parent"
-      >
-        <Text fontSize={10} fill="#999999">
-          💡 Tip: Move this widget around to organize your notes
-        </Text>
-      </AutoLayout>
+      ) : null}
     </AutoLayout>
   );
 }
